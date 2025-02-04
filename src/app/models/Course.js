@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const slug = require('mongoose-slug-generator')
+const mongooseDelete = require('mongoose-delete'); // tải npm install mongoose-delete
 
-// Đăng ký plugin trước khi slug
-mongoose.plugin(slug)
 // Tạo lược đồ Course
 const Course = new Schema(
     {
@@ -18,6 +17,12 @@ const Course = new Schema(
         timestamps: true,
     }
 );
+
+// Add plugin
+mongoose.plugin(slug)
+Course.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethod: 'all'})
 
 // Export 1 model Course
 module.exports = mongoose.model('Course', Course);

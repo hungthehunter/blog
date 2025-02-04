@@ -49,6 +49,16 @@ class CoursesController {
         .then((data) => res.redirect("/me/stored/courses"))
         .catch((err) => console.log("Log : err", err));
     }
+
+    //DELETE /course/:id
+    destroy(res,req,next){
+      Course
+      .delete({_id: req.params.id})
+      .then(() => res.redirect('back'))
+      .catch(next)
+    }
+
+    
 }
 
 module.exports = new CoursesController();
